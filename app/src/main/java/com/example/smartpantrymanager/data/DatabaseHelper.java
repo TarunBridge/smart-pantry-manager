@@ -104,6 +104,90 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     // ------------------------------------------------------------------
+    // INGREDIENTS: full CRUD
+    // ------------------------------------------------------------------
+
+    /** CREATE - returns the new row id, or -1 on failure. */
+    public long insertIngredient(Ingredient ingredient) {
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(COL_NAME, ingredient.getName());
+        values.put(COL_QUANTITY, ingredient.getQuantity());
+        values.put(COL_UNIT, ingredient.getUnit());
+        values.put(COL_EXPIRY, ingredient.getExpiryDate());
+        return db.insert(TABLE_INGREDIENTS, null, values);
+    }
+
+    /** UPDATE - returns the number of rows affected. */
+    public int updateIngredient(Ingredient ingredient) {
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(COL_NAME, ingredient.getName());
+        values.put(COL_QUANTITY, ingredient.getQuantity());
+        values.put(COL_UNIT, ingredient.getUnit());
+        values.put(COL_EXPIRY, ingredient.getExpiryDate());
+        return db.update(TABLE_INGREDIENTS, values, COL_ID + " = ?",
+                new String[]{String.valueOf(ingredient.getId())});
+    }
+
+    /** DELETE - returns the number of rows removed. */
+    public int deleteIngredient(long id) {
+        SQLiteDatabase db = getWritableDatabase();
+        return db.delete(TABLE_INGREDIENTS, COL_ID + " = ?", new String[]{String.valueOf(id)});
+    }
+
+    public int deleteAllIngredients() {
+        SQLiteDatabase db = getWritableDatabase();
+        return db.delete(TABLE_INGREDIENTS, null, null);
+    }
+
+    /** READ (single) */
+    public Ingredient getIngredient(long id) {
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor = db.query(TABLE_INGREDIENTS, null, COL_ID + " = ?",
+                new String[]{String.valueOf(id)}, null, null, null);
+        Ingredient ingredient = null;
+        if (cursor.moveToFirst()) {
+            ingredient = ingredientFromCursor(cursor);
+        }
+        cursor.close();
+        return ingredient;
+    }
+
+    /** READ (list) - the data source for the pantry RecyclerView. */
+    public List<Ingredient> getAllIngredients(String orderBy) {
+        List<Ingredient> items = new ArrayList<>();
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor = db.query(TABLE_INGREDIENTS, null, null, null, null, null, orderBy);
+        while (cursor.moveToNext()) {
+            items.add(ingredientFromCursor(cursor));
+        }
+        cursor.close();
+        return items;
+    }
+
+    private Ingredient ingredientFromCursor(Cursor cursor) {
+        Ingredient item = new Ingredient();
+        item.setId(cursor.getLong(cursor.getColumnIndexOrThrow(COL_ID)));
+        item.setName(cursor.getString(cursor.getColumnIndexOrThrow(COL_NAME)));
+        item.setQuantity(cursor.getDouble(cursor.getColumnIndexOrThrow(COL_QUANTITY)));
+        item.setUnit(cursor.getString(cursor.getColumnIndexOrThrow(COL_UNIT)));
+        item.setExpiryDate(cursor.getString(cursor.getColumnIndexOrThrow(COL_EXPIRY)));
+        return item;
+    }
+
+    public int countIngredients() {
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT COUNT(*) FROM " + TABLE_INGREDIENTS, null);
+        int count = 0;
+        if (cursor.moveToFirst()) {
+            count = cursor.getInt(0);
+        }
+        cursor.close();
+        return count;
+    }
+
+    // ------------------------------------------------------------------
     // RECIPES: read only (they are seeded once)
     // ------------------------------------------------------------------
 
@@ -458,6 +542,34 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             values.put(COL_RI_QUANTITY, Double.parseDouble(row[1]));
             values.put(COL_RI_UNIT, row[2]);
             db.insert(TABLE_RECIPE_INGREDIENTS, null, values);
+        }
+    }
+
+    /** Demo pantry used by the Settings screen so the matcher can be shown quickly. */
+    public void loadDemoPantry() {
+        String[][] demo = {
+                {"Tomatoes", "4", "piece", ""},
+                {"Onion", "2", "piece", ""},
+                {"Garlic", "6", "clove", ""},
+                {"Olive oil", "250", "ml", ""},
+                {"Eggs", "6", "piece", ""},
+                {"Butter", "200", "g", ""},
+                {"Bread", "8", "slice", ""},
+                {"Cheddar cheese", "150", "g", ""},
+                {"Rice", "1", "kg", ""},
+                {"Milk", "500", "ml", ""},
+                {"Penne", "500", "g", ""},
+                {"Basil", "1", "bunch", ""},
+                {"Parmesan", "100", "g", ""},
+                {"Chicken breast", "500", "g", ""}
+        };
+        for (String[] row : demo) {
+            Ingredient item = new Ingredient();
+            item.setName(row[0]);
+            item.setQuantity(Double.parseDouble(row[1]));
+            item.setUnit(row[2]);
+            item.setExpiryDate(row[3]);
+            insertIngredient(item);
         }
     }
 }

@@ -44,10 +44,26 @@
     <string name="label_serves">Serves %1$d</string>
     <string name="label_have">You have this</string>
     <string name="label_need">You do not have this yet</string>
+    <string name="label_alerts">Expiring-soon alerts</string>
+    <string name="summary_alerts">Flag ingredients expiring within 3 days</string>
+    <string name="label_exclude_expired">Exclude expired ingredients</string>
+    <string name="summary_exclude_expired">Expired items do not count towards recipe matching</string>
+    <string name="label_almost">Show \"Almost there\" recipes</string>
+    <string name="summary_almost">Recipes missing exactly one ingredient, listed separately</string>
+    <string name="label_units">Unit preference</string>
+    <string name="unit_metric">Metric (g, ml)</string>
+    <string name="unit_imperial">Imperial (oz, cups)</string>
+    <string name="action_load_demo">Load demo pantry items</string>
+    <string name="action_clear_pantry">Clear all pantry items</string>
+    <string name="msg_demo_loaded">Demo pantry items added</string>
+    <string name="msg_pantry_cleared">Pantry cleared</string>
+    <string name="msg_recipes_seeded">%1$d recipes available</string>
     <string name="nav_pantry">Pantry</string>
     <string name="nav_recipes">Recipes</string>
     <string name="nav_settings">Settings</string>
+    <string name="dialog_clear_pantry_message">Every ingredient will be removed permanently. Recipes are kept.</string>
     <string name="err_record_missing">That ingredient no longer exists.</string>
     <string name="cd_add_ingredient">Add ingredient</string>
+    <string name="label_tools">Pantry tools</string>
     <string name="hint_no_matches_inline">Nothing matches yet — a recipe only appears once you have every ingredient, in the full amount required.</string>
 </resources>

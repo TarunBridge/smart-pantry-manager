@@ -50,7 +50,7 @@ Firebase would have added internet dependency for data that is inherently local,
 
 ## Tech stack
 
-Java 17 · Android Gradle Plugin 8.1.4 · compileSdk 34 · minSdk 23 · AndroidX AppCompat · AndroidX RecyclerView · Material Components 1.11.0 · SQLite
+Java 17 · Android Gradle Plugin 8.5.2 (Gradle 8.7) · compileSdk 34 · minSdk 23 · AndroidX AppCompat · AndroidX RecyclerView · Material Components 1.11.0 · SQLite
 
 ## Setup and run instructions
 

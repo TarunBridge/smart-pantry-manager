@@ -19,6 +19,7 @@ import com.example.smartpantrymanager.R;
 import com.example.smartpantrymanager.adapter.IngredientAdapter;
 import com.example.smartpantrymanager.data.DatabaseHelper;
 import com.example.smartpantrymanager.model.Ingredient;
+import com.example.smartpantrymanager.util.Prefs;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.List;
@@ -26,8 +27,10 @@ import java.util.List;
 /**
  * SCREEN 1 - Pantry List.
  *
- * Reads every pantry row from SQLite into a RecyclerView and opens the Add/Edit
- * screen with an explicit Intent.
+ * Reads every pantry row from SQLite into a RecyclerView. Opens the Add/Edit screen
+ * with an explicit Intent (carrying the row id when editing), and deletes rows after
+ * a confirmation dialog. The list is refreshed in onResume() so that edits made on
+ * another screen, and any changed setting, are visible the moment the user returns.
  */
 public class MainActivity extends BaseNavActivity implements IngredientAdapter.OnIngredientListener {
 
@@ -51,23 +54,33 @@ public class MainActivity extends BaseNavActivity implements IngredientAdapter.O
 
         recyclerPantry.setLayoutManager(new LinearLayoutManager(this));
         recyclerPantry.setHasFixedSize(true);
-        adapter = new IngredientAdapter(this, true, false);
-        recyclerPantry.setAdapter(adapter);
 
         FloatingActionButton fabAdd = findViewById(R.id.fabAddIngredient);
         fabAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // Explicit Intent: no extra, so the target opens in "add" mode.
                 startActivity(new Intent(MainActivity.this, AddEditIngredientActivity.class));
             }
         });
+    }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
         setupBottomNavigation(R.id.nav_pantry);
+
+        // Settings are read on every resume so the list immediately reflects them.
+        boolean showAlerts = Prefs.expiryAlertsEnabled(this);
+        boolean imperial = Prefs.useImperialUnits(this);
+        adapter = new IngredientAdapter(this, showAlerts, imperial);
+        recyclerPantry.setAdapter(adapter);
+
         loadPantry();
     }
 
     private void loadPantry() {
-        List<Ingredient> ingredients = databaseHelper.getAllIngredients(DatabaseHelper.SORT_NAME);
+        List<Ingredient> ingredients = databaseHelper.getAllIngredients(sortOrder);
         adapter.setItems(ingredients);
 
         boolean empty = ingredients.isEmpty();
@@ -75,6 +88,8 @@ public class MainActivity extends BaseNavActivity implements IngredientAdapter.O
         recyclerPantry.setVisibility(empty ? View.GONE : View.VISIBLE);
         tvPantryCount.setText(getString(R.string.label_pantry_count, ingredients.size()));
     }
+
+    // ---- RecyclerView callbacks ----
 
     @Override
     public void onEdit(Ingredient ingredient) {

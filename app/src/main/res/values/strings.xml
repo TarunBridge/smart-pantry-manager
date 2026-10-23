@@ -1,12 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Smart Pantry Manager</string>
+
+    <!-- Screen titles -->
     <string name="title_pantry">My Pantry</string>
     <string name="title_add_ingredient">Add Ingredient</string>
     <string name="title_edit_ingredient">Edit Ingredient</string>
     <string name="title_suggested_recipes">Suggested Recipes</string>
     <string name="title_recipe_detail">Recipe Detail</string>
     <string name="title_settings">Settings</string>
+
+    <!-- Pantry list screen -->
     <string name="hint_pantry_empty">Your pantry is empty.\nTap + to add the ingredients you already have.</string>
     <string name="label_pantry_count">%1$d item(s) in your pantry</string>
     <string name="label_expires_in">Use in %1$d day(s)</string>
@@ -17,6 +21,8 @@
     <string name="msg_ingredient_saved">%1$s saved to pantry</string>
     <string name="action_sort_name">Sort by name</string>
     <string name="action_sort_expiry">Sort by expiry date</string>
+
+    <!-- Add / edit screen -->
     <string name="hint_ingredient_name">Ingredient name (e.g. Tomatoes)</string>
     <string name="hint_quantity">Quantity</string>
     <string name="hint_unit">Unit</string>
@@ -33,17 +39,23 @@
     <string name="dialog_delete_message">%1$s will be removed permanently.</string>
     <string name="dialog_yes">Delete</string>
     <string name="dialog_no">Keep</string>
+
+    <!-- Suggested recipes screen -->
     <string name="hint_no_matches">No recipes match your pantry yet — add more ingredients.\n\nStrict rule: a recipe only appears when you have every ingredient, in the full amount needed.</string>
     <string name="header_ready">Ready to cook now (%1$d)</string>
     <string name="header_almost">Almost there — missing 1 ingredient (%1$d)</string>
     <string name="label_missing">Missing: %1$s</string>
     <string name="label_recipes_used">%1$d of %2$d recipes possible</string>
+
+    <!-- Recipe detail screen -->
     <string name="label_ingredients">Ingredients</string>
     <string name="label_method">Method</string>
     <string name="label_prep_time">Ready in %1$d min</string>
     <string name="label_serves">Serves %1$d</string>
     <string name="label_have">You have this</string>
     <string name="label_need">You do not have this yet</string>
+
+    <!-- Settings screen -->
     <string name="label_alerts">Expiring-soon alerts</string>
     <string name="summary_alerts">Flag ingredients expiring within 3 days</string>
     <string name="label_exclude_expired">Exclude expired ingredients</string>
@@ -58,6 +70,8 @@
     <string name="msg_demo_loaded">Demo pantry items added</string>
     <string name="msg_pantry_cleared">Pantry cleared</string>
     <string name="msg_recipes_seeded">%1$d recipes available</string>
+
+    <!-- Bottom navigation labels -->
     <string name="nav_pantry">Pantry</string>
     <string name="nav_recipes">Recipes</string>
     <string name="nav_settings">Settings</string>
@@ -66,4 +80,5 @@
     <string name="cd_add_ingredient">Add ingredient</string>
     <string name="label_tools">Pantry tools</string>
     <string name="hint_no_matches_inline">Nothing matches yet — a recipe only appears once you have every ingredient, in the full amount required.</string>
+
 </resources>

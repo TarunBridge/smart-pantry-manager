@@ -52,7 +52,11 @@ public class SuggestedRecipesActivity extends BaseNavActivity implements RecipeA
         recyclerRecipes.setLayoutManager(new LinearLayoutManager(this));
         adapter = new RecipeAdapter(this);
         recyclerRecipes.setAdapter(adapter);
+    }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
         setupBottomNavigation(R.id.nav_recipes);
         evaluateRecipes();
     }

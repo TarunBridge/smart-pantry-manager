@@ -38,8 +38,12 @@
     <string name="header_almost">Almost there — missing 1 ingredient (%1$d)</string>
     <string name="label_missing">Missing: %1$s</string>
     <string name="label_recipes_used">%1$d of %2$d recipes possible</string>
+    <string name="label_ingredients">Ingredients</string>
+    <string name="label_method">Method</string>
     <string name="label_prep_time">Ready in %1$d min</string>
     <string name="label_serves">Serves %1$d</string>
+    <string name="label_have">You have this</string>
+    <string name="label_need">You do not have this yet</string>
     <string name="nav_pantry">Pantry</string>
     <string name="nav_recipes">Recipes</string>
     <string name="nav_settings">Settings</string>

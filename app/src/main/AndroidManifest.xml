@@ -34,6 +34,13 @@
             android:exported="false"
             android:label="@string/title_suggested_recipes"
             android:parentActivityName=".ui.MainActivity" />
+
+        <!-- Screen 4: Recipe Detail -->
+        <activity
+            android:name=".ui.RecipeDetailActivity"
+            android:exported="false"
+            android:label="@string/title_recipe_detail"
+            android:parentActivityName=".ui.SuggestedRecipesActivity" />
     </application>
 
 </manifest>

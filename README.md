@@ -98,4 +98,4 @@ app/src/main/
 
 ## Author
 
-Tarun Bridgemohan — [student number] — Mobile App Development 700
+Tarun Bridgemohan — 402309910 — Mobile App Development 700
